@@ -9,7 +9,7 @@ const habitSchema = new mongoose.Schema(
             ref: 'User'
         },
         type: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId, // Kind of habit
             required: true
         },
         value: {
