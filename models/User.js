@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Habit = require('../models/Habit')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -9,14 +10,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    roles: [{
-        type: String,
-        default: "Employee"
-    }],
-    active: {
-        type: Boolean,
-        default: true
-    }
+    habits: [mongoose.model('Habit').schema]
 });
 
 module.exports = mongoose.model('User', userSchema);

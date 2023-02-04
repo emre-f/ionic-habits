@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const Habit = require('../models/Habit')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
@@ -16,15 +15,30 @@ const getAllUsers = asyncHandler(async (req, res) => {
     res.json(users)
 })
 
+// @desc Get a users
+// @route GET /users/:id
+// @access Private
+const getUserById = asyncHandler(async (req, res) => {
+    let id = req.params.id
+
+    const user = await User.findById(id).lean().exec() // No lean, we want save method
+
+    if (!user) { 
+        return res.status(400).json({ message: "User not found" })
+    }
+
+    res.json(user)
+})
+
 // @desc Create user
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
-    const { username, password, roles } = req.body
+    const { username, password } = req.body
 
     // Confirm data
-    if (!username || !password || !Array.isArray(roles) || !roles.length) {
-        return res.status(400).json({ message: "All fields are required" })
+    if (!username || !password) {
+        return res.status(400).json({ message: "Username & password is required" })
     }
 
     // Check for duplicates
@@ -37,7 +51,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     // Hash password
     const hashedPwd = await bcrypt.hash(password, 10) // 10 salt rounds
 
-    const userObject = { username, 'password': hashedPwd, roles }
+    const userObject = { username, 'password': hashedPwd }
 
     // Create & store new user
     const user = await User.create(userObject)
@@ -53,10 +67,10 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, roles, active, password } = req.body
+    const { id, username, password, habits } = req.body
 
     // Confirm data
-    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+    if (!id || !username || !Array.isArray(habits)) {
         return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -75,8 +89,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     // Now update the user...
     user.username = username
-    user.roles = roles
-    user.active = active
+    user.habits = habits
 
     if (password) {
         const hashedPwd = await bcrypt.hash(password, 10) // Hash pw
@@ -103,11 +116,6 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Invalid user ID" })
     }
 
-    const habit = await Habit.findOne({ user: id }).lean().exec()
-    if (habit) {
-        return res.status(400).json({ message: "User has saved habits, cannot delete" })
-    }
-
     const user = await User.findByIdAndDelete(id).exec()
 
     if (!user) {
@@ -123,6 +131,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUsers,   
+    getUserById,
     createNewUser,
     updateUser,
     deleteUser
