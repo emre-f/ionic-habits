@@ -21,7 +21,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res) => {
     let id = req.params.id
 
-    const user = await User.findById(id).lean().exec() // No lean, we want save method
+    const user = await User.findById(id).select('-password').lean().exec() // No lean, we want save method
 
     if (!user) { 
         return res.status(400).json({ message: "User not found" })
@@ -39,6 +39,10 @@ const createNewUser = asyncHandler(async (req, res) => {
     // Confirm data
     if (!username || !password) {
         return res.status(400).json({ message: "Username & password is required" })
+    }
+
+    if (typeof username !== 'string' || typeof password !== 'string') {
+        return res.status(400).json({ message: "Username & password must be strings" })
     }
 
     // Check for duplicates
@@ -67,29 +71,29 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, password, habits } = req.body
+    const id = req.params.id
+    const { username, password } = req.body
 
     // Confirm data
-    if (!id || !username || !Array.isArray(habits)) {
-        return res.status(400).json({ message: "All fields are required" })
-    }
+    if (!id) { return res.status(400).json({ message: "User ID required" }) }
 
     const user = await User.findById(id).exec() // No lean, we want save method
+    if (!user) { return res.status(400).json({ message: "User not found" }) }
 
-    if (!user) { 
-        return res.status(400).json({ message: "User not found" })
+    if (typeof username !== 'string' || typeof password !== 'string') {
+        return res.status(400).json({ message: "Username & password must be strings" })
     }
 
     // Check for duplicate
     const duplicate = await User.findOne({ username }).lean().exec()
+
     // Allow updates to the ORIGINAL user
     if (duplicate && duplicate?._id.toString() !== id) {
         return res.status(409).json({ message: "Duplicate username" })
     }
 
     // Now update the user...
-    user.username = username
-    user.habits = habits
+    if (username) { user.username = username }
 
     if (password) {
         const hashedPwd = await bcrypt.hash(password, 10) // Hash pw
@@ -105,7 +109,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-    const { id } = req.body
+    const id = req.params.id
 
     if (!id) {
         return res.status(400).json({ message: "User ID required" })

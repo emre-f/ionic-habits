@@ -9,14 +9,17 @@ const habitSchema = new mongoose.Schema(
         },
         unitName: {
             type: String,
+            required: true,
             default: "Percentage"
         },
         unitMin: {
             type: Number,
+            required: true,
             default: 0
         },
         unitMax: {
             type: Number,
+            required: true,
             default: 100
         },
         records: [{ // Past readings
@@ -25,7 +28,7 @@ const habitSchema = new mongoose.Schema(
         }],
         notes: {
             type: String,
-            required: false
+            default: ""
         }
     },
     {
