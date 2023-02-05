@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const HabitRecord = require('../models/HabitRecord')
 
 const habitSchema = new mongoose.Schema(
     {
@@ -22,10 +22,7 @@ const habitSchema = new mongoose.Schema(
             required: true,
             default: 100
         },
-        records: [{ // Past readings
-            type: Number,
-            required: false
-        }],
+        records: [mongoose.model('HabitRecord').schema],
         notes: {
             type: String,
             default: ""
@@ -35,12 +32,5 @@ const habitSchema = new mongoose.Schema(
         timestamps: true // Will give us createdAt and updatedAt
     }
 );
-
-// // Will track numbers and assign them
-// habitSchema.plugin(AutoIncrement, {
-//     inc_field: 'ticket',
-//     id: 'ticketNums',
-//     start_seq: 0
-// })
 
 module.exports = mongoose.model('Habit', habitSchema);

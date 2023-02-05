@@ -193,37 +193,42 @@ const updateHabit = asyncHandler(async (req, res) => { console.log("update habit
     res.json({ message: `User ${user.username}'s habit ${user.habits[index].name} updated` })
 })
 
-// @desc Delete user
-// @route DELETE /users
+// @desc Delete habit
+// @route DELETE /users/:id/habits/:habitId
 // @access Private
 const deleteHabit = asyncHandler(async (req, res) => {
-    // const { id } = req.body
+    const { id, habitId } = req.params
 
-    // if (!id) {
-    //     return res.status(400).json({ message: "User ID required" })
-    // }
+    // Validate user & habit IDs
+    if (!id) { return res.status(400).json({ message: "User ID required" }) }
+    if (!mongoose.isValidObjectId(id)) { return res.status(400).json({ message: "Invalid user ID" }) }
+    if (!habitId) { return res.status(400).json({ message: "Habit ID required" }) }
+    if (!mongoose.isValidObjectId(habitId)) { return res.status(400).json({ message: "Invalid habit ID" }) }
 
-    // // Is user ID valid?
-    // if (!mongoose.isValidObjectId(id)) {
-    //     return res.status(400).json({ message: "Invalid user ID" })
-    // }
+    const user = await User.findById(id).exec() // No lean, we want save method
+    if (!user) {
+        return res.status(400).json({ message: "User not found" })
+    }
 
-    // const habit = await Habit.findOne({ user: id }).lean().exec()
-    // if (habit) {
-    //     return res.status(400).json({ message: "User has saved habits, cannot delete" })
-    // }
+    // Delete the habit
+    let index = -1 // Find habit
+    for (let i = 0; i < user.habits.length; i++) {
+        if (user.habits[i]._id == habitId) {
+            index = i
+            break
+        }
+    }
 
-    // const user = await User.findByIdAndDelete(id).exec()
+    if (index === -1) {
+        return res.status(404).json({ message: `Habit not found for user ${user.username}` })
+    }
 
-    // if (!user) {
-    //     return res.status(400).json({ message: "User not found" })
-    // }
+    let habitToBeRemoved = user.habits[index]
+    user.habits.splice(index, 1) // Remove habit (2nd parameter means remove one item only)
 
-    // const result = await user.deleteOne()
-
-    // const reply = `Username ${result.username} with ID ${result._id} deleted`
-
-    // res.json(reply)
+    const updatedUser = await user.save()
+    // No need for catch error because asyncHandler will
+    res.json({ message: `User ${user.username}'s habit ${habitToBeRemoved.name} deleted` })
 })
 
 module.exports = {
