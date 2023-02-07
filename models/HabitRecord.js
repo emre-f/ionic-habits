@@ -6,6 +6,10 @@ const habitRecordSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
+        date: {
+            type: Date,
+            required: true
+        }
     },
     {
         timestamps: true // Will give us createdAt and updatedAt

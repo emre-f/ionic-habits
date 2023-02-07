@@ -1,7 +1,5 @@
 const User = require('../models/User')
-const Habit = require('../models/Habit')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
 // @desc Get all habits for a user

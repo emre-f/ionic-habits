@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController')
 const habitController = require('../controllers/habitController')
+const habitRecordController = require('../controllers/habitRecordController')
 
 router.route('/') // Already at /users/
     .get(userController.getAllUsers)
@@ -20,5 +21,14 @@ router.route('/:id/habits/:habitId')
     .get(habitController.getHabitById)
     .patch(habitController.updateHabit)
     .delete(habitController.deleteHabit)
+
+router.route('/:id/habits/:habitId/records')
+    .get(habitRecordController.getAllHabitRecords)
+    .post(habitRecordController.createNewHabitRecord)
+
+router.route('/:id/habits/:habitId/records/:recordId')
+    .get(habitRecordController.getHabitRecordById)
+    .patch(habitRecordController.updateHabitRecord)
+    .delete(habitRecordController.deleteHabitRecord)
 
 module.exports = router
