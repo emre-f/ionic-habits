@@ -178,6 +178,23 @@ const updateHabit = asyncHandler(async (req, res) => { console.log("update habit
         }
     }
 
+    // If unitMin or unitMax is changing, we also need to change/scale the records
+    if (typeof unitMin !== "undefined" || typeof unitMax !== "undefined") {
+        const habit = user.habits[index]
+        const records = habit.records
+        const oldUnitMin = habit.unitMin
+        const oldUnitMax = habit.unitMax
+        const oldRange = oldUnitMax - oldUnitMin
+        const newRange = unitMax - unitMin
+
+        for (let i = 0; i < records.length; i++) {
+            const record = records[i]
+            const oldRecordValue = record.value
+            const newRecordValue = ((oldRecordValue - oldUnitMin) * newRange / oldRange) + unitMin
+            user.habits[index].records[i].value = newRecordValue
+        }
+    }
+
     if (name) { user.habits[index].name = name }
     if (unitName) { user.habits[index].unitName = unitName }
     if (typeof unitMin !== "undefined") { user.habits[index].unitMin = unitMin }
