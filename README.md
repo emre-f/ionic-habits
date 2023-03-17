@@ -1,6 +1,6 @@
 # ionic-habits
 
-## 0. Running Backend
+## 0. Run Backend
 ```
 cd backend
 ```
@@ -25,7 +25,7 @@ Terminal
 curl http://localhost:3500/users/
 ```
 
-## 1. Running Frontend
+## 1. Run Frontend
 ```
 cd frontend
 npm run start
@@ -37,7 +37,7 @@ Browser
 http://localhost:3000/
 ```
 
-## 2. Running (Mobile) Frontend
+## 2. Run (Mobile) Frontend
 
 Start the Expo App
 ```
