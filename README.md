@@ -38,10 +38,17 @@ http://localhost:3000/
 ```
 
 ## 2. Run (Mobile) Frontend
-
-Start the Expo App
 ```
 cd mobile-frontend
+```
+
+If first time running, install dependencies.
+```
+npm install
+```
+
+Start the Expo App.
+```
 npx expo start
 ``` 
 Scan the QR code with your phone or press `w` to run it in the browser.
