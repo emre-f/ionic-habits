@@ -28,7 +28,16 @@ curl http://localhost:3500/users/
 ## 1. Run Frontend
 ```
 cd frontend
-npm run start
+```
+
+If first time running, install dependencies
+```
+npm install
+```
+
+Start the server.
+```
+npm run dev
 ```
 
 ## 1.1 Confirm Frontend is Running
