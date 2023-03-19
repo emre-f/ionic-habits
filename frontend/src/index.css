@@ -34,7 +34,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #535353;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -69,7 +69,7 @@ button:focus-visible {
 }
 
 .checkBackendButton#working {
-  background-color: #008b2a;
+  background-color: #00f7ff;
   animation: backendConnectionSuccess 0.3s;
 }
 
