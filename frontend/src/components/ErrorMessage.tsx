@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import "../ErrorMessage.css";
+import "../styles/ErrorMessage.css";
 
 interface Message {
   content: string;

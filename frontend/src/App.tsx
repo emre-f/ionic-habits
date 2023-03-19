@@ -1,27 +1,24 @@
-import { useState } from 'react'
 import ionicHabitsLogo from '/logo.svg'
-import './App.css'
-import ErrorMessage from './components/ErrorMessage';
-import CheckBackend from './components/CheckBackend'
-import ListAllUsers from './components/ListAllUsers'
-import SearchUser from './components/SearchUser'
+import Home from './pages/Home'
+import User from './pages/User'
+import { Route, Routes, Link} from 'react-router-dom'
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <ErrorMessage>
-                <div style={{ padding: '1em' }}>
-                    <img src={ionicHabitsLogo} className="logo" alt="Ionic Habits logo" />
-                    <h1 className='title'>Ionic Habits</h1>
-                </div>
+        <>
+            <nav>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+            </nav>
                 
-                <CheckBackend />
-
-                <ListAllUsers />
-
-                <SearchUser />
-            </ErrorMessage>
-        </div>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/user" element={<User />} />
+            </Routes>
+        </>
     )
 }
 
