@@ -1,30 +1,26 @@
 import { useState } from 'react'
 import ionicHabitsLogo from '/logo.svg'
 import './App.css'
+import ErrorMessage from './components/ErrorMessage';
 import CheckBackend from './components/CheckBackend'
 import ListAllUsers from './components/ListAllUsers'
+import SearchUser from './components/SearchUser'
 
-function App() {
+const App: React.FC = () => {
     return (
         <div className="App">
-            <div>
-                <img src={ionicHabitsLogo} className="logo" alt="Ionic Habits logo" />
-                <h1 className='title'>Ionic Habits</h1>
-            </div>
-            
-            <CheckBackend />
+            <ErrorMessage>
+                <div style={{ padding: '1em' }}>
+                    <img src={ionicHabitsLogo} className="logo" alt="Ionic Habits logo" />
+                    <h1 className='title'>Ionic Habits</h1>
+                </div>
+                
+                <CheckBackend />
 
-            <ListAllUsers />
+                <ListAllUsers />
 
-            #TODO SEARCH FOR A USER
-
-            <div className="card">
-                <input type="text" value="" placeholder="username"/>
-      
-                <button>
-                    Search User
-                </button>
-            </div>
+                <SearchUser />
+            </ErrorMessage>
         </div>
     )
 }

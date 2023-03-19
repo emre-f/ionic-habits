@@ -1,0 +1,77 @@
+.error-message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    height: 0;
+}
+
+.error-message {
+    background-color: red;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    animation: error-message-animation 3s;
+}
+
+@keyframes error-message-animation {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+
+    20% {
+        opacity: 1;
+        bottom: 30px;
+    }
+
+    80% {
+        opacity: 1;
+        bottom: 30px;
+    }
+
+    100% {
+        opacity: 0;
+        bottom: 60px;
+    }
+}
+
+.fade-in {
+    animation-name: error-message-animation;
+    animation-fill-mode: forwards;
+}
+
+.fade-out {
+    animation-name: error-message-animation-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes error-message-animation-out {
+    0% {
+        opacity: 1;
+        bottom: 30px;
+    }
+
+    20% {
+        opacity: 1;
+        bottom: 30px;
+    }
+
+    80% {
+        opacity: 0;
+        bottom: 30px;
+    }
+
+    100% {
+        opacity: 0;
+        bottom: 60px;
+    }
+}

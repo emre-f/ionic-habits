@@ -7,6 +7,7 @@ function ListAllUsers() {
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:3500/users/');
         const data = await response.json();
+
         setAllUsers(data);
     };
 
@@ -16,11 +17,9 @@ function ListAllUsers() {
             return (
                 <div style={{ backgroundColor: 'cyan', padding: '10px 0', margin: '20px', maxWidth: '320px', borderRadius: '10px' }}>
                     {allUsers.map(user => (
-                        <>
-                            <button style={{ margin: '5px' }} key={user.id} onClick={() => goToUserProfile(user.id)}>
-                                {user.username}
-                            </button>
-                        </>
+                        <button style={{ margin: '5px' }} key={user._id} onClick={() => goToUserProfile(user._id)}>
+                            {user.username}
+                        </button>
                     ))}
                 </div>
             );

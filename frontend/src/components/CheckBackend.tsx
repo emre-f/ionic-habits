@@ -24,7 +24,6 @@ function CheckBackend() {
 
     return (
         <div className="card">
-            <p> Check if the backend service is working </p>
             <button onClick={checkBackend} className="checkBackendButton" id='unknown'>
                 Backend Working?
             </button>
