@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Levenshtein from 'levenshtein';
 import { useErrorMessage } from "./ErrorMessage";
+import GoToUserButton from './GoToUserButton'
 
 const SearchUser: React.FC = () => {
     const [currentUsers, setCurrentUsers] = useState<any[]>([])
@@ -49,9 +50,7 @@ const SearchUser: React.FC = () => {
             return (
                 <div style={{ backgroundColor: 'cyan', padding: '10px 0', margin: '20px', maxWidth: '320px', borderRadius: '10px' }}>
                     {currentUsers.map(user => (
-                        <button style={{ margin: '5px' }} key={user._id} onClick={() => goToUserProfile(user.id)}>
-                            {user.username}
-                        </button>
+                        <GoToUserButton user={user}/>
                     ))}
                 </div>
             );

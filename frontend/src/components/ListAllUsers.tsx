@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import GoToUserButton from './GoToUserButton'
 
 function ListAllUsers() {
     const [allUsers, setAllUsers] = useState<any[]>([])
@@ -17,22 +18,13 @@ function ListAllUsers() {
             return (
                 <div style={{ backgroundColor: 'cyan', padding: '10px 0', margin: '20px', maxWidth: '320px', borderRadius: '10px' }}>
                     {allUsers.map(user => (
-                        <button style={{ margin: '5px' }} key={user._id} onClick={() => goToUserProfile(user._id)}>
-                            {user.username}
-                        </button>
+                        <GoToUserButton user={user}/>
                     ))}
                 </div>
             );
         } else {
             return null;
         }
-    };
-
-    // function to handle click on user button and navigate to their profile
-    const goToUserProfile = (userId: String) => {
-        // navigate to user profile page
-        // you can use React Router or any other routing library to implement this
-        console.log(userId)
     };
 
     return (

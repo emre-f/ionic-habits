@@ -1,22 +1,20 @@
 import ionicHabitsLogo from '/logo.svg'
 import Home from './pages/Home'
+import About from './pages/About'
 import User from './pages/User'
-import { Route, Routes, Link} from 'react-router-dom'
+import Header from './components/Header'
+import { Route, Routes, Navigate } from 'react-router-dom'
 
 const App: React.FC = () => {
     return (
         <>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                </ul>
-            </nav>
-                
+            <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/user" element={<User />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/about' element={<About />} />
+
+                <Route path="/user/:id" element={<User />} />
+                <Route path="/user" element={<Navigate to="/" />} /> {/* Redirect to home page */}
             </Routes>
         </>
     )
