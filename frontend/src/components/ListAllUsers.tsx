@@ -18,7 +18,7 @@ function ListAllUsers() {
             return (
                 <div style={{ backgroundColor: 'cyan', padding: '10px 0', margin: '20px', maxWidth: '320px', borderRadius: '10px' }}>
                     {allUsers.map(user => (
-                        <GoToUserButton user={user}/>
+                        <GoToUserButton key={user._id} user={user}/>
                     ))}
                 </div>
             );

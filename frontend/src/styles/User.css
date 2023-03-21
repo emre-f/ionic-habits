@@ -1,0 +1,12 @@
+.user-container-title {
+    font-size: 6em;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.user-info-container {
+    background-color: #303030;
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 10px;
+}

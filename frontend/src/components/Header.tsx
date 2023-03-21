@@ -20,7 +20,6 @@ const HeaderLink: React.FC<any> = ({ page, to, selected }) => {
 function Header () { 
     const location = useLocation();
     const page = location.pathname;
-    console.log(page)
 
     return (
     <div className='header'>

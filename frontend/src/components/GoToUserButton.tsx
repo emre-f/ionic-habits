@@ -8,7 +8,7 @@ const App: React.FC<any> = ({ user }) => {
     }
 
     return (
-        <button style={{ margin: '5px' }} key={user._id} onClick={() => goToUserProfile(user._id)}>
+        <button style={{ margin: '5px' }} onClick={() => goToUserProfile(user._id)}>
             {user.username}
         </button>
     );

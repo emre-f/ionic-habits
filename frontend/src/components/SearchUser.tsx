@@ -50,20 +50,13 @@ const SearchUser: React.FC = () => {
             return (
                 <div style={{ backgroundColor: 'cyan', padding: '10px 0', margin: '20px', maxWidth: '320px', borderRadius: '10px' }}>
                     {currentUsers.map(user => (
-                        <GoToUserButton user={user}/>
+                        <GoToUserButton key={user._id} user={user}/>
                     ))}
                 </div>
             );
         } else {
             return null;
         }
-    };
-
-    // function to handle click on user button and navigate to their profile
-    const goToUserProfile = (userId: String) => {
-        // navigate to user profile page
-        // you can use React Router or any other routing library to implement this
-        console.log(userId)
     };
 
     // Make sure to disable search button if there is no input
