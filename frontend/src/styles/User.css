@@ -1,7 +1,7 @@
 .user-container-title {
     font-size: 6em;
     font-style: italic;
-    margin-bottom: 15px;
+    margin-bottom: 20px !important;
 }
 
 .user-info-container {
