@@ -41,7 +41,7 @@ const ErrorMessage: React.FC<Props> = ({ children }) => {
     if (messages.length > 0) { return; }
 
     setMessages((prevMessages) => {
-      return [...prevMessages, { content, time: 3 }]
+      return [...prevMessages, { content, time: 2 }]
     });
   };
 

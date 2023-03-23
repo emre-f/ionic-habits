@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import GoToUserButton from './GoToUserButton'
+import CONSTANTS from '../constants'
+
 
 function ListAllUsers() {
     const [allUsers, setAllUsers] = useState<any[]>([])
 
     // function to fetch users and update allUsers state
     const fetchUsers = async () => {
-        const response = await fetch('http://localhost:3500/users/');
+        const response = await fetch(`${CONSTANTS.API_URL}/users/`);
         const data = await response.json();
 
         setAllUsers(data);

@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import CONSTANTS from '../constants'
 
 function CheckBackend() {
     const [backendState, setBackendState] = useState('unknown')
 
     async function checkBackend() {
-        fetch('http://localhost:3500/users/')
+        fetch(`${CONSTANTS.API_URL}/users/`)
             .then((res) => {
                 var respondStatus = 'unknown'
                 if (res.status === 200) {

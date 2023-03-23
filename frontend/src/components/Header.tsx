@@ -25,6 +25,7 @@ function Header () {
     <div className='header'>
         <HeaderLink page="home" to="/" selected= { page === '/' } />
         <HeaderLink page="about" selected= { page === '/about' } />
+        <HeaderLink page="signup" selected= { page === '/signup' } />
     </div>
 )}
 

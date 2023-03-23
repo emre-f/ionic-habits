@@ -1,12 +1,22 @@
+.user-container {
+    max-width: 350px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .user-container-title {
     font-size: 6em;
     font-style: italic;
     margin-bottom: 20px !important;
+    text-align: center;
 }
 
 .user-info-container {
     background-color: #303030;
     border-radius: 8px;
     margin-top: 5px;
+    margin-bottom: 5px;
     padding: 10px;
+    width: 325px;
 }

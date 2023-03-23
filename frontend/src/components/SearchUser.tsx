@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import Levenshtein from 'levenshtein';
 import { useErrorMessage } from "./ErrorMessage";
 import GoToUserButton from './GoToUserButton'
+import CONSTANTS from '../constants'
 
 const SearchUser: React.FC = () => {
     const [currentUsers, setCurrentUsers] = useState<any[]>([])
@@ -30,7 +31,7 @@ const SearchUser: React.FC = () => {
     const findUser = async () => {
 
         // Get all users
-        const response = await fetch('http://localhost:3500/users/');
+        const response = await fetch(`${CONSTANTS.API_URL}/users/`);
         const allUserData = await response.json();
 
         // Search for user using searchNames method
