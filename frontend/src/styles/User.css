@@ -20,3 +20,15 @@
     padding: 10px;
     width: 325px;
 }
+
+.italic::placeholder {
+    font-style: italic;
+}
+
+.habit-input {
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    padding: 6px; 
+    font-size: 16px
+}
