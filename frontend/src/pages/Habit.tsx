@@ -7,8 +7,9 @@ import CreateUserHabit from '../components/user/CreateUserHabit'
 
 function App() {
     const [user, setUser] = useState<any>()
+    const [habit, setHabit] = useState<any>()
 
-    const { id } = useParams();
+    const { id, habitId } = useParams();
     const navigate = useNavigate();
 
     if (!id) {
@@ -18,7 +19,7 @@ function App() {
 
     // Do this only once
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchInfo = async () => {
             await fetch(`${CONSTANTS.API_URL}/users/${id}`)
             .then(response => {
                 if (response.status === 200) {
@@ -31,18 +32,29 @@ function App() {
             }).catch(error => {
                 navigate('/') // Idk why error isn't caught here but it works :)
             });
+
+            await fetch(`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    throw new Error("Error getting habit")
+                }
+            }).then(data => {
+                setHabit(data);
+            }).catch(error => {
+                navigate('/') // Idk why error isn't caught here but it works :)
+            });
         };
 
-        fetchUser();
+        fetchInfo();
     }, []);
 
-    const renderUserInformation = () => {
-        if (user) {
+    const renderInformation = () => {
+        if (user && habit) {
             return (
                 <div className="user-container">
-                    <h1 className="title user-container-title"> {user.username} </h1>
-                    <AllUserHabits user={user} />
-                    <CreateUserHabit user={user} />
+                    <h1 className="title user-container-title"> {user.username}/{habit.name} </h1>
                 </div>
             );
         } else {
@@ -52,7 +64,7 @@ function App() {
 
     return (
         <>
-            {renderUserInformation()}
+            {renderInformation()}
         </>
     )
 }

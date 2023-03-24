@@ -21,6 +21,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res) => {
     let id = req.params.id
 
+    // Invalid ID
+    if (!mongoose.isValidObjectId(id)) { return res.status(400).json({ message: "Invalid user ID" }) }
+
     const user = await User.findById(id).select('-password').lean().exec() // No lean, we want save method
 
     if (!user) { 
@@ -76,6 +79,9 @@ const updateUser = asyncHandler(async (req, res) => {
 
     // Confirm data
     if (!id) { return res.status(400).json({ message: "User ID required" }) }
+
+    // Invalid ID
+    if (!mongoose.isValidObjectId(id)) { return res.status(400).json({ message: "Invalid user ID" }) }
 
     const user = await User.findById(id).exec() // No lean, we want save method
     if (!user) { return res.status(400).json({ message: "User not found" }) }
