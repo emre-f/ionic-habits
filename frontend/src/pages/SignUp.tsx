@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useErrorMessage } from "../components/ErrorMessage";
+import { useNavigate } from 'react-router-dom'
 import CONSTANTS from '../constants'
 
 function App() {
     const { handleMessage } = useErrorMessage();
+    const navigate = useNavigate();
 
     interface NewUser {
         username: string,
@@ -73,6 +75,29 @@ function App() {
             handleMessage('Error: ' + error);
             return;
         });
+
+        // Get the new users ID
+        var newId = "";
+        await fetch(`${CONSTANTS.API_URL}/users/`)
+            .then(response => response.json())
+            .then(data => {
+                // Find the new user's ID
+                newId = data.find((user: any) => user.username === newUserInfo?.username)._id;
+                console.log(newId)
+            })
+            .catch((error) => {
+                handleMessage('Error: ' + error);
+                return;
+            }
+        );
+
+        if (newId.length === 0) {
+            window.location.reload();
+            handleMessage("Error: Could not find newly created user");
+        } else {
+            // Go to users page
+            navigate(`/user/${newId}`);
+        }
     }
 
     return (
