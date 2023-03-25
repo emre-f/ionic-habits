@@ -2,8 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import "../styles/User.css"
 import CONSTANTS from '../constants'
-import AllUserHabits from '../components/user/AllUserHabits'
-import CreateUserHabit from '../components/user/CreateUserHabit'
+import AllHabitRecords from '../components/habit/AllHabitRecords'
+import CreateHabitRecord from '../components/habit/CreateHabitRecord'
 
 function App() {
     const [user, setUser] = useState<any>()
@@ -54,7 +54,9 @@ function App() {
         if (user && habit) {
             return (
                 <div className="user-container">
-                    <h1 className="title user-container-title"> {user.username}/{habit.name} </h1>
+                    <h1 className="title user-container-title"> <span style={{color: '#707070'}}>{user.username}/</span>{habit.name} </h1>
+                    <AllHabitRecords user={user} habit={habit} />
+                    <CreateHabitRecord user={user} habit={habit} />
                 </div>
             );
         } else {

@@ -94,3 +94,29 @@ button:focus-visible {
   75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
 }
+
+/* anchor tags */
+a {
+  color: #00f7ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cyan-text {
+  color: #00f7ff;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 4px;
+  background-color: #242424;
+  border-radius: 4px;
+  color: cyan;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+}

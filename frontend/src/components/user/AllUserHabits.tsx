@@ -102,7 +102,7 @@ const App: React.FC<any> = ({ user }) => {
                         <tbody>
                             <tr>
                                 <td style={{ width: '50%', textAlign: 'left' }}>
-                                    {habit.name}
+                                    <a href={`/user/${user._id}/habit/${habit._id}`}> {habit.name} </a>
                                 </td>
                                 <td style={{ width: '50%', textAlign: 'right' }}>
                                     <CircleRow percentages={calculatePercentagesFromRecords(habit)} />

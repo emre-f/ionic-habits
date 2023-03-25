@@ -184,7 +184,7 @@ const App: React.FC<any> = ({ user }) => {
                 </table>
 
                 <div style={{textAlign: 'center', marginTop: '20px'}}>
-                    <button onClick={createHabit} id='createUserButton'>
+                    <button onClick={createHabit} id='createHabitButton'>
                         Create Habit
                     </button>
                     <p style={{margin: '0', fontStyle: 'italic', fontSize: '14px', marginTop: '2px'}}>
