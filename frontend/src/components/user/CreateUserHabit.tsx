@@ -94,7 +94,7 @@ const App: React.FC<any> = ({ user }) => {
 
         // Notes can only have alphabet characters, numbers, or space
         const regex2 = /^[a-zA-Z0-9 ]+$/;
-        if (!regex2.test(newHabitInfo.notes)) {
+        if (newHabitInfo.notes.length > 0 && !regex2.test(newHabitInfo.notes)) {
             handleMessage("Notes can only contain letters, numbers, or space");
             return;
         }

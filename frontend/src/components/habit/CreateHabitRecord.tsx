@@ -17,94 +17,82 @@ const App: React.FC<any> = ({ user, habit }) => {
 
     const createRecord = async () => {
         console.log("create record")
-        // // If user is null return error
-        // if (!user) {
-        //     handleMessage("User not found");
-        //     return;
-        // }
+        // If user is null return error
+        if (!user) {
+            handleMessage("User not found");
+            return;
+        }
 
-        // // If new habit name is empty, return
-        // if (newHabitInfo.name === "") {
-        //     handleMessage("Please enter a habit name");
-        //     return;
-        // }
+        // If habit is null return error
+        if (!habit) {
+            handleMessage("Habit not found");
+            return;
+        }
 
-        // if (newHabitInfo.unitName === "") {
-        //     handleMessage("Please enter a unit name");
-        //     return;
-        // }
+        // Make sure value is entered
+        if (newRecordInfo.value === "") {
+            handleMessage("Please enter a value");
+            return;
+        }
 
-        // // Habit can't be longer than 20 characters
-        // if (newHabitInfo.name.length > 20 || newHabitInfo.unitName.length > 20) {
-        //     handleMessage("Names must be less than 20 characters");
-        //     return;
-        // }
+        let numValue = Number(newRecordInfo.value);
 
-        // // Habit can only have alphabet characters or space
-        // const regex = /^[a-zA-Z ]+$/;
-        // if (!regex.test(newHabitInfo.name) || !regex.test(newHabitInfo.unitName)) {
-        //     handleMessage("Names can only contain letters or space");
-        //     return;
-        // }
+        // Make sure value is a number
+        if (isNaN(numValue)) {
+            handleMessage("Value must be a number");
+            return;
+        }
 
-        // // Unit min and unit max must be numbers
-        // if (isNaN(Number(newHabitInfo.unitMin)) || isNaN(Number(newHabitInfo.unitMax))) {
-        //     handleMessage("Unit min and unit max must be numbers");
-        //     return; 
-        // }
+        // Make sure value is between unit min and unit max
+        if (numValue < habit.unitMin || numValue > habit.unitMax) {
+            handleMessage("Value must be between unit min and unit max");
+            return;
+        }
 
-        // // If they contain a decimal, can only have 1 decimal point 
-        // if (newHabitInfo.unitMin.split('.').length > 1 && newHabitInfo.unitMin.split('.')[1].length > 1) {
-        //     handleMessage("Unit min can only have 1 decimal point");
-        //     return;
-        // }
-        // if (newHabitInfo.unitMax.split('.').length > 1 && newHabitInfo.unitMax.split('.')[1].length > 1) {
-        //     handleMessage("Unit max can only have 1 decimal point");
-        //     return;
-        // }
+        // If value contains only a decimal, can only have 1 decimal point
+        if (newRecordInfo.value.split('.').length > 1 && newRecordInfo.value.split('.')[1].length > 1) {
+            handleMessage("Value can only have 1 decimal point");
+            return;
+        }
+
+        // Make sure there is a date
+        if (newRecordInfo.date === "") {
+            handleMessage("Please enter a date");
+            return;
+        }
+
+        // Check if date is valid
+        let date = new Date(newRecordInfo.date);
+        if (date.toString() === "Invalid Date") {
+            handleMessage("Date is invalid");
+            return;
+        }
+
+        // Date can't be before 2023, or in the future
+        if (date.getFullYear() < 2023 || date > new Date()) {
+            handleMessage("Date must be after 2023 and not in the future");
+            return;
+        }
         
-        // // Unit min has to be less than unit max
-        // if (Number(newHabitInfo.unitMin) >= Number(newHabitInfo.unitMax)) {
-        //     handleMessage("Unit min must be less than unit max");
-        //     return;
-        // }
+        var finalRecord = {
+            value: numValue,
+            date: date
+        }
 
-        // // Notes can only have alphabet characters, numbers, or space
-        // const regex2 = /^[a-zA-Z0-9 ]+$/;
-        // if (!regex2.test(newHabitInfo.notes)) {
-        //     handleMessage("Notes can only contain letters, numbers, or space");
-        //     return;
-        // }
+        // Create record
+        await fetch(`${CONSTANTS.API_URL}/users/${user._id}/habits/${habit._id}/records/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(finalRecord)
+        }).catch((error) => {
+            handleMessage('Error: ' + error);
+            return;
+        });
 
-        // // Notes can't be longer than 100 characters
-        // if (newHabitInfo.notes.length > 100) {
-        //     handleMessage("Notes must be less than 100 characters");
-        //     return;
-        // }
-        
-        // // Turn unit min & max into numbers
-        // var finalHabit = {
-        //     name: newHabitInfo.name,
-        //     unitName: newHabitInfo.unitName,
-        //     unitMin: Number(newHabitInfo.unitMin),
-        //     unitMax: Number(newHabitInfo.unitMax),
-        //     notes: newHabitInfo.notes
-        // }
-
-        // // Create habit
-        // await fetch(`${CONSTANTS.API_URL}/users/${user._id}/habits/`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(finalHabit)
-        // }).catch((error) => {
-        //     handleMessage('Error: ' + error);
-        //     return;
-        // });
-
-        // // Refresh page
-        // window.location.reload();
+        // Refresh page
+        window.location.reload();
     }
 
     return (
@@ -116,7 +104,7 @@ const App: React.FC<any> = ({ user, habit }) => {
                         <tr style={{ marginBottom: '10px' }}>
                             <td> Value*: </td>
                             <td style={{ width: '50%' }}>
-                                <input className="italic habit-input" type="text" placeholder="Reading"
+                                <input className="italic habit-input" type="text" placeholder="100"
                                     onChange={
                                         (e: any) => setNewRecordInfo(prev => {
                                             const newValue = e.target.value;
@@ -131,7 +119,7 @@ const App: React.FC<any> = ({ user, habit }) => {
                         <tr style={{ marginBottom: '10px' }}>
                             <td> Date*: </td>
                             <td style={{ width: '50%' }}>
-                                <input className="italic habit-input" type="date" placeholder="Pages"
+                                <input className="italic habit-input" type="date"
                                     onChange={
                                         (e: any) => setNewRecordInfo(prev => {
                                             const newValue = prev.value ?? '';

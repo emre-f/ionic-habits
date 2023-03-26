@@ -4,6 +4,8 @@ import "../styles/User.css"
 import CONSTANTS from '../constants'
 import AllHabitRecords from '../components/habit/AllHabitRecords'
 import CreateHabitRecord from '../components/habit/CreateHabitRecord'
+import HabitSummary from '../components/habit/HabitSummary'
+import DeleteItem from '../components/DeleteItem'
 
 function App() {
     const [user, setUser] = useState<any>()
@@ -50,13 +52,20 @@ function App() {
         fetchInfo();
     }, []);
 
-    const renderInformation = () => {
+    const renderInformation = () => { 
         if (user && habit) {
             return (
                 <div className="user-container">
                     <h1 className="title user-container-title"> <span style={{color: '#707070'}}>{user.username}/</span>{habit.name} </h1>
+                    <HabitSummary user={user} habit={habit} />
+                    <AllHabitRecords user={user} habit={habit} />
                     <AllHabitRecords user={user} habit={habit} />
                     <CreateHabitRecord user={user} habit={habit} />
+                    <DeleteItem 
+                        name= "Habit"
+                        link= {`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`} 
+                        redirectLink= {`/user/${id}`}
+                    />
                 </div>
             );
         } else {

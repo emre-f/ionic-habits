@@ -4,6 +4,7 @@ import "../styles/User.css"
 import CONSTANTS from '../constants'
 import AllUserHabits from '../components/user/AllUserHabits'
 import CreateUserHabit from '../components/user/CreateUserHabit'
+import DeleteItem from '../components/DeleteItem'
 
 function App() {
     const [user, setUser] = useState<any>()
@@ -43,6 +44,11 @@ function App() {
                     <h1 className="title user-container-title"> {user.username} </h1>
                     <AllUserHabits user={user} />
                     <CreateUserHabit user={user} />
+                    <DeleteItem 
+                        name= "User"
+                        link= {`${CONSTANTS.API_URL}/users/${id}`} 
+                        redirectLink= {`/`}
+                    />
                 </div>
             );
         } else {
