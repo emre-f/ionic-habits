@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
 
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 0;
     right: 0;
@@ -13,7 +13,6 @@
     color: #00f7ff;
     text-decoration: none;
     padding: 0 5px;
-    /* TODO: need to add background coloring to them */
 }
 
 .headerlink-dot {

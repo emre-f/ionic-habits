@@ -16,7 +16,6 @@ const App: React.FC<any> = ({ user, habit }) => {
     });
 
     const createRecord = async () => {
-        console.log("create record")
         // If user is null return error
         if (!user) {
             handleMessage("User not found");
@@ -63,6 +62,9 @@ const App: React.FC<any> = ({ user, habit }) => {
 
         // Check if date is valid
         let date = new Date(newRecordInfo.date);
+        let userTimezoneOffset = date.getTimezoneOffset() * 60000; // Correct for timezone differences
+        date = new Date(date.getTime() + userTimezoneOffset * Math.sign(userTimezoneOffset));
+
         if (date.toString() === "Invalid Date") {
             handleMessage("Date is invalid");
             return;
@@ -80,19 +82,37 @@ const App: React.FC<any> = ({ user, habit }) => {
         }
 
         // Create record
+        var good_response = false;
+        var caught_error = {
+            'status': "",
+            'message': ""
+        }
+        
         await fetch(`${CONSTANTS.API_URL}/users/${user._id}/habits/${habit._id}/records/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(finalRecord)
-        }).catch((error) => {
+        })
+        .then((response) => {
+            good_response = response.status === 200;
+            if (!good_response) {
+                caught_error.status = String(response.status);
+                caught_error.message = response.statusText;
+            }
+        })
+        .catch((error) => {
             handleMessage('Error: ' + error);
             return;
         });
 
         // Refresh page
-        window.location.reload();
+        if (good_response) {
+            // window.location.reload();
+        } else {
+            handleMessage(`Error ${caught_error.status}: ${caught_error.message}`);
+        }
     }
 
     return (

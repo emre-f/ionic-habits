@@ -59,7 +59,6 @@ function App() {
                     <h1 className="title user-container-title"> <span style={{color: '#707070'}}>{user.username}/</span>{habit.name} </h1>
                     <HabitSummary user={user} habit={habit} />
                     <AllHabitRecords user={user} habit={habit} />
-                    <AllHabitRecords user={user} habit={habit} />
                     <CreateHabitRecord user={user} habit={habit} />
                     <DeleteItem 
                         name= "Habit"
