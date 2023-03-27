@@ -4,6 +4,7 @@ import "../styles/User.css"
 import CONSTANTS from '../constants'
 import AllHabitRecords from '../components/habit/AllHabitRecords'
 import CreateHabitRecord from '../components/habit/CreateHabitRecord'
+import DeleteHabitRecord from '../components/habit/DeleteHabitRecord'
 import HabitSummary from '../components/habit/HabitSummary'
 import DeleteItem from '../components/DeleteItem'
 
@@ -60,6 +61,7 @@ function App() {
                     <HabitSummary user={user} habit={habit} />
                     <AllHabitRecords user={user} habit={habit} />
                     <CreateHabitRecord user={user} habit={habit} />
+                    <DeleteHabitRecord user={user} habit={habit} />
                     <DeleteItem 
                         name= "Habit"
                         link= {`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`} 

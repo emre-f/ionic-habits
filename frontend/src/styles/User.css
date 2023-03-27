@@ -1,5 +1,5 @@
 .user-container {
-    max-width: 350px;
+    max-width: 750px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -10,8 +10,8 @@
     font-style: italic;
     margin-bottom: 20px !important;
     text-align: center;
-    max-width: 750px;
     word-wrap: break-word;
+    width: 750px;
 }
 
 .user-info-container {
@@ -20,7 +20,7 @@
     margin-top: 5px;
     margin-bottom: 5px;
     padding: 10px;
-    width: 325px;
+    width: 360px;
 }
 
 .italic::placeholder {

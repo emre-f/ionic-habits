@@ -22,7 +22,7 @@ const D3Plot: React.FC<Props> = ({ data }) => {
 
             // Set up dimensions
             const width = 750;
-            const height = 325;
+            const height = 300;
             const margin = { top: 30, right: 30, bottom: 50, left: 50 };
             const innerWidth = width - margin.left - margin.right;
             const innerHeight = height - margin.top - margin.bottom;

@@ -87,7 +87,7 @@ const App: React.FC<any> = ({ user, habit }) => {
             'status': "",
             'message': ""
         }
-        
+
         await fetch(`${CONSTANTS.API_URL}/users/${user._id}/habits/${habit._id}/records/`, {
             method: 'POST',
             headers: {
@@ -118,7 +118,7 @@ const App: React.FC<any> = ({ user, habit }) => {
     return (
         <div className="user-info-container">
             <h2 className="title" style={{ marginBottom: '20px' }}> Create New Record </h2>
-            <div style={{ maxWidth: '325px', textAlign: 'left' }}>
+            <div style={{ maxWidth: '360px', textAlign: 'left' }}>
                 <table style={{ width: '100%' }}>
                     <tbody>
                         <tr style={{ marginBottom: '10px' }}>

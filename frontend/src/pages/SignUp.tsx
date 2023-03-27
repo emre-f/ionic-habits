@@ -103,7 +103,7 @@ function App() {
     return (
         <div className="card" style={{ textAlign: 'center' }}>
             <h1 className="title" style={{ marginBottom: '20px' }}> Welcome to Ionic Habits </h1>
-            <div style={{ justifyContent: 'space-between', maxWidth: '325px', display: 'inline-block' }}>
+            <div style={{ justifyContent: 'space-between', maxWidth: '360px', display: 'inline-block' }}>
                 <table style={{ width: '100%' }}>
                     <tbody>
                         <tr>

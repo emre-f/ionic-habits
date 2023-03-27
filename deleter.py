@@ -14,7 +14,8 @@
 #     for habit in habits:
 #         records = habit['records']
 #         for record in records:
-#             if record['date'] < "2023-01-01":
+#             if record['date'] > "2023-03-26":
+#                 # print("found!")
 #                 habit_id = habit['_id']
 #                 record_id = record['_id']
 #                 conn.request("DELETE", f"/users/{user['_id']}/habits/{habit_id}/records/{record_id}")
