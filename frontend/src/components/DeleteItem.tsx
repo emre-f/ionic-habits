@@ -34,7 +34,7 @@ const App: React.FC<any> = ({ name, link, redirectLink }) => {
                 handleMessage(`Successfully deleted ${name}`)
                 navigate(redirectLink);
             } else {
-                throw new Error("Error deleting user")
+                throw new Error(`Error deleting ${name}`)
             }
         }).catch(error => {
             handleMessage(`Error deleting ${name}`)

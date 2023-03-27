@@ -140,7 +140,7 @@ const createNewHabitRecord = asyncHandler(async (req, res) => {
 // @desc Update habit record
 // @route PATCH /users/:id/habits/:habitId/records/:recordId
 // @access Private
-const updateHabitRecord = asyncHandler(async (req, res) => { console.log("update habit")
+const updateHabitRecord = asyncHandler(async (req, res) => {
     const { id, habitId, recordId } = req.params // IDs  
 
     // 0. Validate IDs

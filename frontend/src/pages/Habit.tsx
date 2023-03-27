@@ -2,9 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import "../styles/User.css"
 import CONSTANTS from '../constants'
-import AllHabitRecords from '../components/habit/AllHabitRecords'
+import HabitRecordPlot from '../components/habit/HabitRecordPlot'
 import CreateHabitRecord from '../components/habit/CreateHabitRecord'
-import DeleteHabitRecord from '../components/habit/DeleteHabitRecord'
+import ListAllRecords from '../components/habit/ListAllRecords'
 import HabitSummary from '../components/habit/HabitSummary'
 import DeleteItem from '../components/DeleteItem'
 
@@ -59,9 +59,9 @@ function App() {
                 <div className="user-container">
                     <h1 className="title user-container-title"> <span style={{color: '#707070'}}>{user.username}/</span>{habit.name} </h1>
                     <HabitSummary user={user} habit={habit} />
-                    <AllHabitRecords user={user} habit={habit} />
+                    <HabitRecordPlot user={user} habit={habit} />
+                    <ListAllRecords user={user} habit={habit} />
                     <CreateHabitRecord user={user} habit={habit} />
-                    <DeleteHabitRecord user={user} habit={habit} />
                     <DeleteItem 
                         name= "Habit"
                         link= {`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`} 
