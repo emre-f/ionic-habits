@@ -109,7 +109,7 @@ const App: React.FC<any> = ({ user, habit }) => {
 
         // Refresh page
         if (good_response) {
-            // window.location.reload();
+            window.location.reload();
         } else {
             handleMessage(`Error ${caught_error.status}: ${caught_error.message}`);
         }

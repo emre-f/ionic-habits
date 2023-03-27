@@ -83,9 +83,9 @@ const App: React.FC<any> = ({ user, habit }) => {
             <div className="edit-area">
                 Edit value to
                 &nbsp;
-                <input style={{width:'10%'}} type="text" id="edit-value" defaultValue={oldValue} />
+                <input style={{ width: '10%' }} type="text" id="edit-value" defaultValue={oldValue} />
                 &nbsp;
-                <button style={{padding: '4px', fontSize: '0.8em'}} onClick={sendEdit}>
+                <button style={{ padding: '4px', fontSize: '0.8em' }} onClick={sendEdit}>
                     Submit
                 </button>
             </div>
@@ -144,6 +144,10 @@ const App: React.FC<any> = ({ user, habit }) => {
         }
     }
 
+    const sortedRecords = [...habit.records].sort((a, b) => {
+        return new Date(b.date) > new Date(a.date) ? -1 : 1; // Sort by date earliest->latest
+    });
+
     const recordsTableHeader = () => {
         if (habit.records.length === 0) {
             return (
@@ -171,7 +175,7 @@ const App: React.FC<any> = ({ user, habit }) => {
                 {recordsTableHeader()}
                 <table style={{ width: '100%' }} >
                     <tbody>
-                        {habit.records.map((record: Record) => (
+                        {sortedRecords.map((record: Record) => (
 
                             <tr key={CONSTANTS.GENERATE_ID()}>
                                 <td style={{ width: '44%', textAlign: 'left' }}>
