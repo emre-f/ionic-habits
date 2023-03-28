@@ -19,11 +19,6 @@ const App: React.FC<any> = ({ user, habit }) => {
         notes: habit.notes
     });
 
-    // Print out habit info if it changes
-    useEffect(() => {
-        console.log(currentHabitInfo);
-    }, [currentHabitInfo]);
-
     function updateHabitInfo(name: string, value: any) {
         if (name === "habitName") { name = "name" }
 

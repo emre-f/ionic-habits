@@ -1,9 +1,14 @@
 import React from 'react';
+import '../../styles/Toggle.css';
 
-const App: React.FC<any> = ({ user, habit }) => {
+const App: React.FC<any> = ({ user, habit, editMode, setEditMode }) => {
     // Get first and last date
     const [firstDate, setFirstDate] = React.useState<String>("");
     const [lastDate, setLastDate] = React.useState<String>("");
+
+    const handleToggle = () => {
+        setEditMode((prevEditMode: Boolean) => !prevEditMode);
+    };
 
     // Describe habit object
     type Record = {
@@ -64,6 +69,20 @@ const App: React.FC<any> = ({ user, habit }) => {
                             <td style={{ textAlign: 'left' }}> Latest Record Date: </td>
                             <td style={{ width: '50%', textAlign: 'right' }}>
                                 {lastDate.length > 0 ? lastDate : <span style={{ fontStyle: 'italic', color: '#707070' }}>N/A</span>}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{ textAlign: 'left' }}> <label htmlFor="editModeSwitch">Edit Mode:</label> </td>
+                            <td style={{ width: '50%', textAlign: 'right' }}>
+                                <label className="toggle">
+                                    <input
+                                        type="checkbox"
+                                        id="editModeSwitch"
+                                        checked={editMode}
+                                        onChange={handleToggle}
+                                    />
+                                    <span className="slider"></span>
+                                </label>
                             </td>
                         </tr>
                     </thead>

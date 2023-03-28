@@ -13,6 +13,8 @@ function App() {
     const [user, setUser] = useState<any>()
     const [habit, setHabit] = useState<any>()
 
+    const [editMode, setEditMode] = useState<boolean>(false); // to see edit record/habit boxes
+
     const { id, habitId } = useParams();
     const navigate = useNavigate();
 
@@ -25,50 +27,62 @@ function App() {
     useEffect(() => {
         const fetchInfo = async () => {
             await fetch(`${CONSTANTS.API_URL}/users/${id}`)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    throw new Error("Error getting user")
-                }
-            }).then(data => {
-                setUser(data);
-            }).catch(error => {
-                navigate('/') // Idk why error isn't caught here but it works :)
-            });
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error getting user")
+                    }
+                }).then(data => {
+                    setUser(data);
+                }).catch(error => {
+                    navigate('/') // Idk why error isn't caught here but it works :)
+                });
 
             await fetch(`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    throw new Error("Error getting habit")
-                }
-            }).then(data => {
-                setHabit(data);
-            }).catch(error => {
-                navigate('/') // Idk why error isn't caught here but it works :)
-            });
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                    } else {
+                        throw new Error("Error getting habit")
+                    }
+                }).then(data => {
+                    setHabit(data);
+                }).catch(error => {
+                    navigate('/') // Idk why error isn't caught here but it works :)
+                });
         };
 
         fetchInfo();
     }, []);
 
-    const renderInformation = () => { 
+    const renderInformation = () => {
         if (user && habit) {
             return (
                 <div className="user-container">
-                    <h1 className="title user-container-title"> <span style={{color: '#707070'}}>{user.username}/</span>{habit.name} </h1>
-                    <HabitSummary user={user} habit={habit} />
-                    <EditHabit user={user} habit={habit} />
-                    <HabitRecordPlot user={user} habit={habit} />
-                    <ListAllRecords user={user} habit={habit} />
-                    <CreateHabitRecord user={user} habit={habit} />
-                    <DeleteItem 
-                        name= "Habit"
-                        link= {`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`} 
-                        redirectLink= {`/user/${id}`}
+                    <h1 className="title user-container-title"> <span style={{ color: '#707070' }}>{user.username}/</span>{habit.name} </h1>
+                    <HabitSummary
+                        user={user}
+                        habit={habit}
+                        editMode={editMode} setEditMode={setEditMode}
                     />
+
+                    {!editMode ?
+                        <>
+                            <HabitRecordPlot user={user} habit={habit} />
+                        </>
+                        :
+                        <>
+                            <EditHabit user={user} habit={habit} />
+                            <ListAllRecords user={user} habit={habit} />
+                            <CreateHabitRecord user={user} habit={habit} />
+                            <DeleteItem
+                                name="Habit"
+                                link={`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`}
+                                redirectLink={`/user/${id}`}
+                            />
+                        </>
+                    }
                 </div>
             );
         } else {
