@@ -8,6 +8,9 @@ router.route('/') // Already at /users/
     .get(userController.getAllUsers)
     .post(userController.createNewUser)
 
+router.route('/login')
+    .post(userController.loginUser)
+
 router.route('/:id')
     .get(userController.getUserById)
     .patch(userController.updateUser)

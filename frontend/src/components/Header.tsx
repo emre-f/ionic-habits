@@ -1,5 +1,6 @@
 import { Link, useParams, useLocation } from 'react-router-dom'
 import "../styles/Header.css"
+import {useAuthUser} from 'react-auth-kit'
 
 const HeaderLink: React.FC<any> = ({ page, to, selected }) => {
     const title = page.charAt(0).toUpperCase() + page.slice(1);
@@ -18,14 +19,19 @@ const HeaderLink: React.FC<any> = ({ page, to, selected }) => {
   };
 
 function Header () { 
+    const auth = useAuthUser();
     const location = useLocation();
     const page = location.pathname;
-
+    console.log(auth())
     return (
     <div className='header'>
         <HeaderLink page="home" to="/" selected= { page === '/' } />
         <HeaderLink page="about" selected= { page === '/about' } />
         <HeaderLink page="signup" selected= { page === '/signup' } />
+        <HeaderLink page="login" selected= { page === '/login' } />
+        <div>
+            Hello {auth()?.username}
+        </div>
     </div>
 )}
 

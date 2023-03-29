@@ -2,6 +2,7 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken');
 
 // @desc Get all users
 // @route GET /users
@@ -139,10 +140,51 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+// @desc Login user
+// @route POST users/login
+// @access Public
+const loginUser = asyncHandler(async (req, res) => {
+    const { username, password } = req.body
+
+    // Confirm data
+    if (!username || !password) {
+        return res.status(400).json({ message: "Username & password is required" })
+    }
+
+    if (typeof username !== 'string' || typeof password !== 'string') {
+        return res.status(400).json({ message: "Username & password must be strings" })
+    }
+
+    const foundUser = await User.findOne({ username }).lean().exec() // .exec() returns a promise
+
+    if (!foundUser) {
+        return res.status(404).json({ message: "User not found" })
+    }
+
+    const match = await bcrypt.compare(password, foundUser.password)
+
+    if (!match) {
+        return res.status(401).json({ message: "Incorrect password" })
+    }
+
+    const jwtToken = jwt.sign(
+        { id: foundUser._id }, 
+        process.env.JWT_SECRET, 
+    )
+
+    res.status(200).json({ 
+        message: "Login successful", 
+        token: jwtToken,
+        username: foundUser.username,
+        id: foundUser._id
+    })
+})
+
 module.exports = {
     getAllUsers,   
     getUserById,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser
 }
