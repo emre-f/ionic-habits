@@ -43,10 +43,10 @@ npm run dev
 ## 1.1 Confirm Frontend is Running
 Browser
 ```
-http://localhost:3000/
+http://localhost:5173/
 ```
 
-## 2. Run (Mobile) Frontend
+## 2. Run (Mobile) Frontend [#TODO, for now use web frontend]
 ```
 cd mobile-frontend
 ```
