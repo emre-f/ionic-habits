@@ -3,9 +3,9 @@ import '../styles/Home.css'
 import CheckBackend from '../components/CheckBackend'
 import ListAllUsers from '../components/ListAllUsers'
 import SearchUser from '../components/SearchUser'
+import CONSTANTS from '../constants'
 
 const Home: React.FC = () => {
-    console.log(document.cookie)
     return (
         <div className="App">
             <div style={{ padding: '1em' }}>
