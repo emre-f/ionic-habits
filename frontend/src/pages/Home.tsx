@@ -5,6 +5,7 @@ import ListAllUsers from '../components/ListAllUsers'
 import SearchUser from '../components/SearchUser'
 
 const Home: React.FC = () => {
+    console.log(document.cookie)
     return (
         <div className="App">
             <div style={{ padding: '1em' }}>

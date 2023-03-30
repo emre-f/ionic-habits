@@ -8,6 +8,7 @@ import EditHabit from '../components/habit/EditHabit'
 import ListAllRecords from '../components/habit/ListAllRecords'
 import HabitSummary from '../components/habit/HabitSummary'
 import DeleteItem from '../components/DeleteItem'
+import { useAuthUser } from 'react-auth-kit'
 
 function App() {
     const [user, setUser] = useState<any>()
@@ -17,6 +18,7 @@ function App() {
 
     const { id, habitId } = useParams();
     const navigate = useNavigate();
+    const auth = useAuthUser();
 
     if (!id) {
         navigate('/');
@@ -67,11 +69,7 @@ function App() {
                         editMode={editMode} setEditMode={setEditMode}
                     />
 
-                    {!editMode ?
-                        <>
-                            <HabitRecordPlot user={user} habit={habit} />
-                        </>
-                        :
+                    {auth() !== undefined && auth() !== null && auth()?.id === user._id && editMode ?
                         <>
                             <EditHabit user={user} habit={habit} />
                             <ListAllRecords user={user} habit={habit} />
@@ -81,6 +79,10 @@ function App() {
                                 link={`${CONSTANTS.API_URL}/users/${id}/habits/${habitId}`}
                                 redirectLink={`/user/${id}`}
                             />
+                        </>
+                        :
+                        <>
+                            <HabitRecordPlot user={user} habit={habit} />
                         </>
                     }
                 </div>

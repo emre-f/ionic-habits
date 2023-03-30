@@ -1,10 +1,12 @@
 import React from 'react';
 import '../../styles/Toggle.css';
+import { useAuthUser } from 'react-auth-kit'
 
 const App: React.FC<any> = ({ user, habit, editMode, setEditMode }) => {
     // Get first and last date
     const [firstDate, setFirstDate] = React.useState<String>("");
     const [lastDate, setLastDate] = React.useState<String>("");
+    const auth = useAuthUser();
 
     const handleToggle = () => {
         setEditMode((prevEditMode: Boolean) => !prevEditMode);
@@ -71,20 +73,22 @@ const App: React.FC<any> = ({ user, habit, editMode, setEditMode }) => {
                                 {lastDate.length > 0 ? lastDate : <span style={{ fontStyle: 'italic', color: '#707070' }}>N/A</span>}
                             </td>
                         </tr>
-                        <tr>
-                            <td style={{ textAlign: 'left' }}> <label htmlFor="editModeSwitch">Edit Mode:</label> </td>
-                            <td style={{ width: '50%', textAlign: 'right' }}>
-                                <label className="toggle">
-                                    <input
-                                        type="checkbox"
-                                        id="editModeSwitch"
-                                        checked={editMode}
-                                        onChange={handleToggle}
-                                    />
-                                    <span className="slider"></span>
-                                </label>
-                            </td>
-                        </tr>
+                        {auth() !== undefined && auth() !== null && auth()?.id === user._id &&
+                            <tr>
+                                <td style={{ textAlign: 'left' }}> <label htmlFor="editModeSwitch">Edit Mode:</label> </td>
+                                <td style={{ width: '50%', textAlign: 'right' }}>
+                                    <label className="toggle">
+                                        <input
+                                            type="checkbox"
+                                            id="editModeSwitch"
+                                            checked={editMode}
+                                            onChange={handleToggle}
+                                        />
+                                        <span className="slider"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        }
                     </thead>
                 </table>
             </div>

@@ -170,6 +170,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const jwtToken = jwt.sign(
         { id: foundUser._id }, 
         process.env.JWT_SECRET, 
+        { expiresIn: '24h' }
     )
 
     res.status(200).json({ 

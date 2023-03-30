@@ -42,8 +42,7 @@ const SignInComponent = () => {
                         id: data.id
                     }
                 });
-                
-                // TODO: After login succesul go to home page or their page
+
                 navigate('/');
             } else {
                 //Throw error
@@ -54,12 +53,42 @@ const SignInComponent = () => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
-            <input type={"text"} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
-            <input type={"password"} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
-
-            <button>Submit</button>
-        </form>
+        <div className="card" style={{ textAlign: 'center' }}>
+            <h1 className="title" style={{ marginBottom: '20px' }}> Welcome Back </h1>
+            <div style={{ justifyContent: 'space-between', maxWidth: '360px', display: 'inline-block' }}>
+                <table style={{ width: '100%' }}>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input
+                                    style={{ fontSize: 20, border: 'none', borderRadius: '10px', width: '80%', padding: '6px', marginBottom: '10px' }}
+                                    type="text"
+                                    placeholder="username"
+                                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    style={{ fontSize: 20, border: 'none', borderRadius: '10px', width: '80%', padding: '6px', marginBottom: '10px' }}
+                                    type="password"
+                                    placeholder="password"
+                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })} 
+                                    />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button onClick={onSubmit}>
+                                    Login
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     )
 }
 
