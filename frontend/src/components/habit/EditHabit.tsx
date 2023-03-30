@@ -109,7 +109,11 @@ const App: React.FC<any> = ({ user, habit }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(finalHabit)
-        }).catch((error) => {
+        })
+        .then((response) => {
+            // console.log(response)
+        })
+        .catch((error) => {
             handleMessage('Error: ' + error);
             return;
         });

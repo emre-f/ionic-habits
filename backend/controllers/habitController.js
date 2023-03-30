@@ -163,9 +163,9 @@ const updateHabit = asyncHandler(async (req, res) => { console.log("update habit
         return res.status(400).json({ message: "Unit min must be less than unit max" })
     }
 
-    // Check for duplicates
+    // Check for duplicates (not same habit)
     const habits = user.habits
-    if (habits.find(item => item.name === name)) {
+    if (habits.find(item => (item.name === name && item._id.valueOf() !== habitId))) {
         return res.status(409).json({ message: "Duplicate habit name" }) // 409: Conflict
     }
 
