@@ -111,7 +111,7 @@ const App: React.FC<any> = ({ user, habit }) => {
             body: JSON.stringify(finalHabit)
         })
         .then((response) => {
-            // console.log(response)
+        
         })
         .catch((error) => {
             handleMessage('Error: ' + error);

@@ -21,7 +21,6 @@ function Header() {
     const auth = useAuthUser();
     const location = useLocation();
     const page = location.pathname;
-    console.log(auth())
     let user = auth();
 
     return (

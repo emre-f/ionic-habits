@@ -83,7 +83,6 @@ function App() {
             .then(data => {
                 // Find the new user's ID
                 newId = data.find((user: any) => user.username === newUserInfo?.username)._id;
-                console.log(newId)
             })
             .catch((error) => {
                 handleMessage('Error: ' + error);

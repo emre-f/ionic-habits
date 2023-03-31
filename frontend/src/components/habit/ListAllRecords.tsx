@@ -113,7 +113,6 @@ const App: React.FC<any> = ({ user, habit }) => {
         }
 
         var link = `${CONSTANTS.API_URL}/users/${user._id}/habits/${habit._id}/records/${recordId}`;
-        console.log(link)
         var good_response = false;
         var caught_error = {
             'status': "",
